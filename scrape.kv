@@ -1,0 +1,167 @@
+<Header@Label>:
+    font_size: 20
+    size_hint:(0.5,0.1)
+    pos_hint: {'center_x': .5}
+
+<Text@Label>
+    font_size:14
+
+<MainInput@TextInput>:
+    size_hint:(0.5,0.1)
+    height:'13dp'
+    pos_hint: {'center_x': .5}
+    multiline: False
+    font_size: 18
+    color:0,0,0,1
+
+<ScrapyScreen>:
+    txt_inpt:surl
+    BoxLayout:
+        size_hint_x:1
+        size_hint_y:0.4
+        orientation:'vertical'
+        spacing:'20dp'
+        pos_hint: {'center_x': .5,'center_y':0.7}
+
+        Header:
+            text: 'URL'
+        MainInput:
+            id:surl
+            hint_text: 'https://xyz.com'
+        Header:
+            text: 'Depth'
+        MainInput:
+            id: sdepth
+            hint_text: 'Value from 0-255'
+
+        Button:
+            id: btn
+            text: 'Type of Scrape'
+            on_release: sdropdown.open(self)
+            size_hint_x: 0.5
+            size_hint_y: None
+            height: '28dp'
+            pos_hint: {'center_x': .5, 'center_y': .5}
+
+        DropDown:
+            id: sdropdown
+            on_select: btn.text = 'Selected value: {}'.format(args[1])
+
+            Button:
+                text: 'Headers on Page'
+                size_hint_y: None
+                height: '24dp'
+                on_release: sdropdown.select('item1')
+                on_parent: sdropdown.dismiss()
+            Button:
+                text: 'Headers on Domain'
+                size_hint_y: None
+                height: '24dp'
+                on_release: sdropdown.select('item2')
+                on_parent: sdropdown.dismiss()
+            Button:
+                text: 'Number of Links on Domain'
+                size_hint_y: None
+                height: '24dp'
+                on_release: sdropdown.select('item2')
+                on_parent: sdropdown.dismiss()
+
+    BoxLayout:
+        orientation:'vertical'
+        spacing:'10dp'
+        size_hint_y: 0.15
+        pos_hint: {'center_x': .5,'center_y':0.29}
+
+        Button:
+            text: 'Submit'
+            size_hint_x: 0.5
+            size_hint_y: 1.0
+            background_color: (0,0.6,0.4,1)
+            pos_hint:{'center_x': .5, 'center_y':.7}
+            on_press: root.scrape()
+
+        Button:
+            text:'For Javascript Rendered Site -->'
+            background_color:(0,0,0,1)
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'selenium'
+
+    Header:
+        text:'Scrapy (V1.0)'
+
+<SeleniumScreen>:
+    BoxLayout:
+        size_hint_x:1
+        size_hint_y:0.4
+        orientation:'vertical'
+        spacing:'20dp'
+        pos_hint: {'center_x': .5,'center_y':0.7}
+
+        Header:
+            text: 'URL'
+        MainInput:
+            id:ssurl
+            hint_text: 'https://xyz.com'
+        Header:
+            text: 'Depth'
+        MainInput:
+            id:ssdepth
+            hint_text: 'Value from 0-255'
+
+        Button:
+            id: btn
+            text: 'Type of Scrape'
+            on_release: ssdropdown.open(self)
+            size_hint_x: 0.5
+            size_hint_y: None
+            height: '28dp'
+            pos_hint: {'center_x': .5, 'center_y': .5}
+
+        DropDown:
+            id: ssdropdown
+            on_select: btn.text = 'Selected value: {}'.format(args[1])
+
+            Button:
+                text: 'Headers on Page'
+                size_hint_y: None
+                height: '24dp'
+                on_release: ssdropdown.select('item1')
+                on_parent: ssdropdown.dismiss()
+            Button:
+                text: 'Headers on Domain'
+                size_hint_y: None
+                height: '24dp'
+                on_release: ssdropdown.select('item2')
+                on_parent: ssdropdown.dismiss()
+            Button:
+                text: 'Number of links on Domain'
+                size_hint_y: None
+                height: '24dp'
+                on_release: ssdropdown.select('item2')
+                on_parent: ssdropdown.dismiss()
+
+    BoxLayout:
+        orientation:'vertical'
+        spacing:'10dp'
+        size_hint_y: 0.15
+        pos_hint: {'center_x': .5,'center_y':0.29}
+
+        Button:
+            text: 'Submit'
+            size_hint_x: 0.5
+            size_hint_y: 1.0
+            background_color: (0,0.6,0.4,1)
+            pos_hint:{'center_x': .5, 'center_y':.7}
+            on_press: root.scrape()
+
+        Button:
+            text:'<-- For Normal Rendered Site'
+            background_color:(0,0,0,1)
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'scrapy'
+
+
+    Header:
+        text:'Selenium (V1.0)'
